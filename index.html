@@ -1498,8 +1498,8 @@
         const filtered = days.filter(function (day) {
           return day.timeline.some(function (item) {
             const itemType = item.color === 'red' ? 'special'
-                          : item.color === 'amber' ? 'supply'
-                          : 'sight'
+              : item.color === 'amber' ? 'supply'
+                : 'sight'
             return itemType === type;
           });
         });
