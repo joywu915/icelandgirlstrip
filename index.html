@@ -718,7 +718,7 @@
 
     .supply-text small {
       font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.4);
+      color: rgb(218, 218, 218);
     }
 
     .notice-item {
@@ -740,15 +740,15 @@
     }
 
     .notice-text strong {
-      font-size: 0.82rem;
+      font-size: 1rem;
       font-weight: 500;
       display: block;
       margin-bottom: 2px;
     }
 
     .notice-text small {
-      font-size: 0.72rem;
-      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.8rem;
+      color: rgb(218, 218, 218);
       line-height: 1.6;
     }
 
@@ -1102,6 +1102,15 @@
         <div class="notice-text">
           <strong>Camping Card 使用</strong>
           <small>標 ★ 的露營地可使用，有效期至 9/15，全程約 7-8 晚可省費用</small>
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-icon">💡</div>
+        <div class="notice-text">
+          <strong> 行前必備工具</strong>
+          <small>📍 離線地圖：Google Maps 或 Maps.me 已下載</small><br>
+          <small>📅 預約確認：冰川健行、租車確認信件</small><br>
+          <small>📱 必要 APP：Vedur (天氣)、SafeTravel (路況)</small><br>
         </div>
       </div>
     </div>
@@ -1491,17 +1500,18 @@
 
       // 更新 Navbar 文字
       if (currentEntry) {
+        const weekday = currentEntry.querySelector('.day-weekday').textContent
         const day = currentEntry.querySelector('.day-date').textContent
         const region = currentEntry.querySelector('.day-region').textContent;
-        scrollNavText.textContent = 'Day ' + day + ' . ' + region;
+        scrollNavText.textContent = day + ' / ' + weekday + ' . ' + region;
       }
     });
 
     const tripStats = [
       { num: '12', label: '天 · 11 夜 ' },
-      { num: days.flatMap(function(day) { return day.timeline; }).length, label: '精選景點' },
+      { num: days.flatMap(function (day) { return day.timeline; }).length, label: '精選景點' },
       { num: '~1800', label: '公里總車程' },
-      { num: days.flatMap(function(day) { return day.timeline; }).filter(function(item) { return item.color === 'red'; }).length, label: '溫泉體驗' },
+      { num: days.flatMap(function (day) { return day.timeline; }).filter(function (item) { return item.color === 'red'; }).length, label: '溫泉體驗' },
     ];
 
     const overviewEl = document.querySelector('.overview');
