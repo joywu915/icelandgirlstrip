@@ -498,7 +498,7 @@
     }
 
     .spot-tag {
-      font-size: 1rem;
+      font-size: 0.8rem;
       padding: 0.25rem 0.7rem;
       border-radius: 100px;
       border: 1px solid;
@@ -641,6 +641,15 @@
       font-size: 1rem;
       color: #7ba872;
       font-weight: 500;
+    }
+
+    a.camp-name {
+      color: #7ba872;
+      text-decoration: none;
+    }
+
+    a.camp-name:hover {
+      text-decoration: underline;
     }
 
     .camp-note {
@@ -1132,6 +1141,7 @@
         timeline: [
           paid('Una & Ash 抵達 KEF 取車', '08:20', '確認 Toyota RAV4 + 設備 + Camping Card'),
           paid('哈爾格林姆教堂', '登塔 1400 ISK', '冰島最著名地標，管風琴造型 ｜ 09:00-20:00 ｜ 約 1 小時'),
+          paid('冰島國立博物館', '2500 ISK', '了解冰島歷史 | 09:00-17:00'),
           free('太陽航海者 + Harpa 音樂廳', '海邊維京船骨架雕塑 + 幾何玻璃建築 ｜ 約 1.5 小時'),
           free('托寧湖 Tjörnin', '市中心「鴨子湖」，散步放鬆 ｜ 約 30 分'),
           info('Joy 抵達 KEF', 'Una & Ash 開車接，市區會合'),
@@ -1140,6 +1150,7 @@
         camp: {
           name: 'Reykjavík Eco Campsite',
           note: '市區生態露營地，有衛浴設施，第一晚適應',
+          url: 'https://maps.app.goo.gl/6G1B3UdSMS5UhEtK7',
         }
       },
       // ── Day 2：8/27 ──────────────────────────────
@@ -1158,7 +1169,11 @@
           free('Rauðfeldsgjá 神秘裂谷', '狹窄裂谷可走入山壁內部 ｜ 約 45 分'),
           free('黑教堂 Búðakirkja', '遺世獨立的小黑教堂，攝影愛好者必訪 ｜ 約 20 分'),
         ],
-        camp: { name: 'Hellissandur Camping ★ 露營卡', note: '斯奈山西端，位置方便明日行程' },
+        camp: {
+          name: 'Hellissandur Camping ★ 露營卡',
+          note: '斯奈山西端，位置方便明日行程',
+          url: 'https://maps.google.com/?q=Hellissandur+Camping+Iceland'
+        },
       },
 
       // ── Day 3：8/28 ──────────────────────────────
@@ -1176,7 +1191,11 @@
           free('Stykkishólmur 小鎮', '《白日夢冒險王》拍攝地，色彩繽紛 ｜ 約 1 小時'),
           free('Berserkjahraun 熔岩原', '苔蘚熔岩荒野，充滿古老傳說 ｜ 約 30 分'),
         ],
-        camp: { name: 'Grundarfjörður Camping', note: '教堂山旁，黃昏光線絕美' },
+        camp: {
+          name: 'Grundarfjörður Camping',
+          note: '教堂山旁，黃昏光線絕美',
+          url: 'https://maps.google.com/?q=Grundarfjordur+Camping+Iceland'
+        },
       },
 
       // ── Day 4：8/29 ──────────────────────────────
@@ -1194,7 +1213,11 @@
           free('Hvítserkur 海象岩', '矗立海中的巨大奇石，建議退潮時前往 ｜ 約 45 分'),
           warn('Varmahlíð / Sauðárkrókur 補給', '中型超市，補充食物飲水前往阿庫雷里'),
         ],
-        camp: { name: 'Varmahlíð Camping ★ 露營卡', note: '北部補給重點，設施完善' },
+        camp: {
+          name: 'Varmahlíð Camping ★ 露營卡',
+          note: '北部補給重點，設施完善',
+          url: 'https://maps.google.com/?q=Varmahlid+Camping+Iceland'
+        },
       },
 
       // ── Day 5：8/30 ──────────────────────────────
@@ -1211,7 +1234,11 @@
           hot('Forest Lagoon 森林溫泉', '6500 ISK｜需提前預約', '2022 開幕，隱身森林的高質感溫泉 ｜ 10:00-24:00 ｜ 約 2-3 小時'),
           free('Goðafoss 眾神瀑布', '氣勢磅礴的半圓形瀑布，傍晚光線最美 ｜ 約 1 小時'),
         ],
-        camp: { name: 'Lónsá Camping ★ 或 Heiðarbær ★ 露營卡', note: '阿庫雷里附近，眾神瀑布旁' },
+        camp: {
+          name: 'Lónsá Camping ★ 或 Heiðarbær ★ 露營卡',
+          note: '阿庫雷里附近，眾神瀑布旁',
+          url: 'https://maps.google.com/?q=Godafoss+Camping+Iceland'
+        },
       },
 
       // ── Day 6：8/31 ──────────────────────────────
@@ -1229,7 +1256,11 @@
           free('Grjótagjá 洞穴溫泉', '《權力遊戲》取景地，現水溫過高禁止入水，可觀看 ｜ 約 20 分'),
           hot('米湖溫泉 Mývatn Nature Baths', '6490 ISK｜建議提前預約', '北部的「藍湖」，泉水偏藍富含礦物質 ｜ 12:00-22:00 ｜ 約 2 小時'),
         ],
-        camp: { name: 'Vogar (Mývatn) Camping ★ 露營卡', note: '米湖區中心位置，方便明日出發' },
+        camp: {
+          name: 'Vogar (Mývatn) Camping ★ 露營卡',
+          note: '米湖區中心位置，方便明日出發',
+          url: 'https://maps.google.com/?q=Vogar+Camping+Myvatn+Iceland'
+        },
       },
 
       // ── Day 7：9/1 ──────────────────────────────
@@ -1246,7 +1277,12 @@
           paid('Stuðlagil 玄武岩柱峽谷', '停車 1000 ISK', '世界級蒂芬妮藍河水 ｜ 需健行約 30 分下谷 ｜ 約 2 小時'),
           warn('Egilsstaðir Bónus 大補給', '東部最大城市 ｜ 採購 3-4 天份量 ｜ 南下最後大補給站'),
         ],
-        camp: { name: 'Egilsstaðir Camping ★ 露營卡', note: '東部大城，設施完善' },
+        camp: {
+          name: 'Egilsstaðir Camping ★ 露營卡',
+          note: '東部大城，設施完善',
+          url: 'https://maps.google.com/?q=Egilsstadir+Camping+Iceland'
+        },
+
       },
 
       // ── Day 8：9/2 ──────────────────────────────
@@ -1263,7 +1299,11 @@
           free('Hengifoss + Litlanesfoss', '紅色地層條紋瀑布 + 極細玄武岩柱 ｜ 單程 2.5km 健行 ｜ 約 2.5 小時'),
           hot('Vök Baths 浮湖溫泉', '6900 ISK｜需提前預約', '浮在湖面上的地熱溫泉，設計感極強 ｜ 10:00-22:00 ｜ 約 2 小時'),
         ],
-        camp: { name: 'Fljótsdalsgrund Camping ★ 露營卡', note: 'Hengifoss 附近，東峽灣核心' },
+        camp: {
+          name: 'Fljótsdalsgrund Camping ★ 露營卡',
+          note: 'Hengifoss 附近，東峽灣核心',
+          url: 'https://maps.google.com/?q=Fljotsdalsgrund+Camping+Iceland'
+        },
       },
 
       // ── Day 9：9/3 ──────────────────────────────
@@ -1279,7 +1319,11 @@
           paid('Stokksnes 鏡面沙灘 + Vestrahorn 蝙蝠山', '1000 ISK', '攝影師聖地，下午光線也很美 ｜ 約 1.5 小時'),
           free('Múlagljúfur 隱藏秘境峽谷', '瀑布從高處傾瀉，遊客極少 ｜ 輕度健行約 40 分 ｜ 強推！約 1.5 小時'),
         ],
-        camp: { name: 'Höfn 附近露營地', note: '東南角，方便明日一早前往冰河湖' },
+        camp: {
+          name: 'Höfn 附近露營地',
+          note: '東南角，方便明日一早前往冰河湖',
+          url: 'https://maps.google.com/?q=Hofn+Camping+Iceland'
+        },
       },
 
       // ── Day 10：9/4 ──────────────────────────────
@@ -1299,7 +1343,11 @@
           free('Dyrhólaey 海蝕拱門', '巨大海蝕洞，夏末可能仍有 Puffin ｜ 約 45 分'),
           warn('維克小超市補給', '明日黃金圈補給點少'),
         ],
-        camp: { name: 'Vík Camping 或 Skógar Camping', note: '位置方便明日黃金圈行程' },
+        camp: {
+          name: 'Vík Camping 或 Skógar Camping',
+          note: '位置方便明日黃金圈行程',
+          url: 'https://maps.google.com/?q=Vik+Camping+Iceland'
+        },
       },
 
       // ── Day 11：9/5 ──────────────────────────────
@@ -1318,7 +1366,11 @@
           paid('Þingvellir 辛格韋德利', '停車 1000 ISK', '歐美板塊交界 + 冰島民主議會誕生地 ｜ 約 1 小時'),
           info('道別 — 你飛往奧斯陸', '朋友送你到 KEF ｜ 朋友就近露營，9/6 早上 09:10 飛倫敦'),
         ],
-        camp: { name: '朋友：KEF 附近 Reykjamörk Camping ★', note: '露營卡可用 ｜ 9/6 早上短程即達機場' },
+        camp: {
+          name: 'Una, Ash：KEF 附近 Reykjamörk Camping ★',
+          note: '露營卡可用 ｜ 9/6 早上短程即達機場',
+          url: 'https://maps.google.com/?q=Reykjamark+Camping+Iceland'
+        },
       },
     ];
 
@@ -1379,7 +1431,7 @@
                 <div class="camp-bar">
                   <div class="camp-icon">⛺</div>
                   <div>
-                    <div class="camp-name">${day.camp.name}</div>
+                    <a class="camp-name" href="${day.camp.url}" target="_blank" rel="noopener">${day.camp.name} ↗</a>
                     <div class="camp-note">${day.camp.note}</div>
                   </div>
                 </div>
@@ -1447,9 +1499,9 @@
 
     const tripStats = [
       { num: '12', label: '天 · 11 夜 ' },
-      { num: '40+', label: '精選景點' },
+      { num: days.flatMap(function(day) { return day.timeline; }).length, label: '精選景點' },
       { num: '~1800', label: '公里總車程' },
-      { num: '∞', label: '溫泉體驗' },
+      { num: days.flatMap(function(day) { return day.timeline; }).filter(function(item) { return item.color === 'red'; }).length, label: '溫泉體驗' },
     ];
 
     const overviewEl = document.querySelector('.overview');
@@ -1497,10 +1549,10 @@
         // 其他類型：看 timeline 裡有沒有符合的 type
         const filtered = days.filter(function (day) {
           return day.timeline.some(function (item) {
-            const itemType = item.color === 'red' ? 'special'
-              : item.color === 'amber' ? 'supply'
-                : 'sight'
-            return itemType === type;
+            if (type === 'hot') return item.color === 'red';
+            if (type === 'special') return item.color === 'red';
+            if (type === 'supply') return item.color === 'amber';
+            return item.color === 'blue';
           });
         });
 
