@@ -54,29 +54,79 @@
       gap: 0;
     }
 
-    .hero-photo-wrap {
+    .hero-map-wrap {
       position: relative;
       z-index: 1;
       flex-shrink: 0;
       align-self: center;
-      margin-bottom: 0;
-    }
-
-    .hero-photo {
-      width: clamp(480px, 38vw, 560px);
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-      object-position: center top;
-      border-radius: 12px;
-      display: block;
-      filter: brightness(0.92) saturate(0.9);
-      box-shadow:
-        0 0 0 1px rgba(200, 221, 232, 0.15),
-        0 8px 40px rgba(0, 0, 0, 0.6),
-        0 0 60px rgba(138, 184, 204, 0.12);
+      cursor: pointer;
       animation: photoFadeIn 1.2s ease forwards;
       opacity: 0;
-      animation-delay: 0.4s;
+      animation-delay: 0.5s;
+    }
+
+    .hero-map-card {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(20, 30, 40, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(138, 184, 204, 0.2);
+      box-shadow:
+        0 8px 40px rgba(0, 0, 0, 0.5),
+        0 0 60px rgba(138, 184, 204, 0.08);
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    .hero-map-card:hover {
+      transform: translateY(-4px) scale(1.015);
+      border-color: rgba(138, 184, 204, 0.45);
+      box-shadow:
+        0 16px 60px rgba(0, 0, 0, 0.6),
+        0 0 80px rgba(138, 184, 204, 0.15);
+    }
+
+    .hero-map-img {
+      width: clamp(360px, 32vw, 480px);
+      aspect-ratio: auto;
+      object-fit: contain;
+      display: block;
+      border-radius: 13px 13px 0 0;
+      filter: brightness(0.95) saturate(0.95);
+      transition: filter 0.35s ease;
+    }
+
+    .hero-map-card:hover .hero-map-img {
+      filter: brightness(1) saturate(1);
+    }
+
+    .hero-map-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 1rem;
+      background: rgba(10, 18, 26, 0.6);
+    }
+
+    .hero-map-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(200, 221, 232, 0.6);
+    }
+
+    .hero-map-hint {
+      font-size: 0.65rem;
+      color: rgba(138, 184, 204, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: color 0.3s ease;
+    }
+
+    .hero-map-card:hover .hero-map-hint {
+      color: rgba(138, 184, 204, 0.9);
     }
 
     @keyframes photoFadeIn {
@@ -91,16 +141,65 @@
       }
     }
 
-    .hero-photo-caption {
+    /* ─── LIGHTBOX ─── */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+      cursor: zoom-out;
+    }
+
+    .lightbox-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-img {
+      max-width: 92vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 16px 80px rgba(0, 0, 0, 0.7);
+      transform: scale(0.92);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .lightbox-overlay.active .lightbox-img {
+      transform: scale(1);
+    }
+
+    .lightbox-close {
       position: absolute;
-      bottom: -1.4rem;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(200, 221, 232, 0.45);
+      top: 1.2rem;
+      right: 1.5rem;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.25s, border-color 0.25s, color 0.25s;
+      z-index: 10000;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.4);
+      color: #fff;
     }
 
     .hero-bg {
@@ -659,6 +758,29 @@
       margin-top: 2px;
     }
 
+    .tl-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+
+    .tl-link {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      border: 1px solid rgba(138, 184, 204, 0.3);
+      color: var(--glacier);
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+      letter-spacing: 0.03em;
+    }
+
+    .tl-link:hover {
+      background: rgba(138, 184, 204, 0.1);
+      border-color: rgba(138, 184, 204, 0.6);
+    }
+
     /* ─── TIPS SECTION ─── */
     .tips-section {
       padding: 5rem 3rem;
@@ -794,14 +916,21 @@
         flex: none;
       }
 
-      .hero-photo-wrap {
+      .hero-map-wrap {
         align-self: stretch;
       }
 
-      .hero-photo {
+      .hero-map-img {
         width: 100%;
-        max-height: 60vw;
-        aspect-ratio: unset;
+        max-height: 50vw;
+      }
+
+      .hero-map-card {
+        border-radius: 10px;
+      }
+
+      .hero-map-img {
+        border-radius: 9px 9px 0 0;
       }
 
       .overview {
@@ -914,12 +1043,27 @@
         <span>Aug. 26 - Sep. 6</span>
       </div>
     </div>
-    <!--
-    <div class="hero-photo-wrap">
-      <img class="hero-photo" src="hero-photo.jpg" alt="三人合照">
-      <div class="hero-photo-caption">Joy · Una · Ash · 2026</div>
+    <div class="hero-map-wrap" onclick="openLightbox()">
+      <div class="hero-map-card">
+        <img class="hero-map-img" src="冰島旅行地圖.png" alt="冰島11天環島行程地圖">
+        <div class="hero-map-footer">
+          <span class="hero-map-label">11 Days Ring Road · 行程地圖</span>
+          <span class="hero-map-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="16.5" y1="16.5" x2="21" y2="21" />
+            </svg>
+            點擊放大
+          </span>
+        </div>
+      </div>
     </div>
-    -->
+
+    <!-- Lightbox -->
+    <div class="lightbox-overlay" id="mapLightbox" onclick="closeLightbox(event)">
+      <button class="lightbox-close" onclick="closeLightbox(event)" aria-label="關閉">✕</button>
+      <img class="lightbox-img" src="冰島旅行地圖.png" alt="冰島11天環島行程地圖">
+    </div>
   </section>
 
   <!-- OVERVIEW -->
@@ -931,7 +1075,7 @@
     <div class="route-line">
       <div class="route-node">
         <div class="route-dot start"></div>
-        <div class="route-name">雷克雅未克</div>
+        <div class="route-name">雷克雅維克</div>
       </div>
       <div class="route-connector"></div>
       <div class="route-node">
@@ -941,12 +1085,12 @@
       <div class="route-connector"></div>
       <div class="route-node">
         <div class="route-dot"></div>
-        <div class="route-name">瀑布群</div>
+        <div class="route-name">北部小鎮</div>
       </div>
       <div class="route-connector"></div>
       <div class="route-node">
         <div class="route-dot"></div>
-        <div class="route-name">阿庫雷里</div>
+        <div class="route-name">阿克雷里</div>
       </div>
       <div class="route-connector"></div>
       <div class="route-node">
@@ -956,17 +1100,7 @@
       <div class="route-connector"></div>
       <div class="route-node">
         <div class="route-dot"></div>
-        <div class="route-name">黛提瀑布</div>
-      </div>
-      <div class="route-connector"></div>
-      <div class="route-node">
-        <div class="route-dot"></div>
         <div class="route-name">東峽灣</div>
-      </div>
-      <div class="route-connector"></div>
-      <div class="route-node">
-        <div class="route-dot"></div>
-        <div class="route-name">霍芬</div>
       </div>
       <div class="route-connector"></div>
       <div class="route-node">
@@ -976,12 +1110,22 @@
       <div class="route-connector"></div>
       <div class="route-node">
         <div class="route-dot"></div>
-        <div class="route-name">南岸維克</div>
+        <div class="route-name">冰川維克</div>
+      </div>
+      <div class="route-connector"></div>
+      <div class="route-node">
+        <div class="route-dot"></div>
+        <div class="route-name">南岸瀑布</div>
+      </div>
+      <div class="route-connector"></div>
+      <div class="route-node">
+        <div class="route-dot"></div>
+        <div class="route-name">金圈</div>
       </div>
       <div class="route-connector"></div>
       <div class="route-node">
         <div class="route-dot end"></div>
-        <div class="route-name">黃金圈</div>
+        <div class="route-name">雷克雅維克</div>
       </div>
     </div>
   </section>
@@ -1128,20 +1272,40 @@
   </footer>
 
   <script>
-    function free(title, note) {
-      return { color: 'blue', title, badge: { text: '免費', type: 'free' }, note };
+    function openLightbox() {
+      document.getElementById('mapLightbox').classList.add('active');
+      document.body.style.overflow = 'hidden'; // 防止背景滾動
     }
-    function paid(title, price, note) {
-      return { color: 'blue', title, badge: { text: price, type: 'paid' }, note };
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        document.getElementById('mapLightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    function closeLightbox(event) {
+      // 點擊關閉按鈕或背景才關閉，點擊圖片本身不關閉
+      if (event.target === event.currentTarget || event.target.classList.contains('lightbox-close')) {
+        document.getElementById('mapLightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
     }
-    function warn(title, note) {
-      return { color: 'amber', title, badge: { text: '重要', type: 'warn' }, note };
+
+    function free(title, note, links = []) {
+      return { color: 'blue', title, badge: { text: '免費', type: 'free' }, note, links };
     }
-    function hot(title, price, note) {
-      return { color: 'red', title, badge: { text: price, type: 'paid' }, note };
+    function paid(title, price, note, links = []) {
+      return { color: 'blue', title, badge: { text: price, type: 'paid' }, note, links };
     }
-    function info(title, note) {
-      return { color: 'red', title, badge: { text: '', type: 'warn' }, note };
+    function warn(title, note, links = []) {
+      return { color: 'amber', title, badge: { text: '重要', type: 'warn' }, note, links };
+    }
+    function hot(title, price, note, links = []) {
+      return { color: 'red', title, badge: { text: price, type: 'paid' }, note, links };
+    }
+    function info(title, note, links = []) {
+      return { color: 'red', title, badge: { text: '', type: 'warn' }, note, links };
     }
 
     const days = [
@@ -1154,19 +1318,24 @@
         drive: 'Una & Ash 08:20 抵達\n Joy 17:20 抵達',
         mapUrl: 'https://maps.app.goo.gl/zVNMJxxVv4G7Skvq7',
         timeline: [
-          paid('Una & Ash 抵達 KEF 取車', '08:20', '確認 Toyota RAV4 + 設備 + Camping Card'),
-          paid('冰島國立博物館', '2500 ISK', '了解冰島歷史 | 09:00-17:00'),
-          free('Bókumbók', '藝術書店, open wed-sat 13-17 ｜ 13:00-17:00'),
+          paid('冰島國立博物館', '2500 ISK', '系統性了解冰島歷史的首選地。｜ 10:00-17:00'),
+          free('Bókumbók', '藝術書店...', [
+            { label: 'IG', url: 'https://www.instagram.com/bokumbok_/' },
+          ]),
           free('Verzlanahöllin', '民眾集結成的二手服裝店 ｜ 10:00-18:00'),
-          free('太陽航海者 + Harpa 音樂廳', '海邊維京船骨架雕塑 + 幾何玻璃建築 ｜ 約 1.5 小時'),
-          free('托寧湖 Tjörnin', '市中心「鴨子湖」，散步放鬆 ｜ 約 30 分'),
-          info('Joy 抵達 KEF', 'Una & Ash 開車接，市區會合'),
-          paid('哈爾格林姆教堂', '登塔 1400 ISK', '冰島最著名地標，管風琴造型 ｜ 09:00-20:00 ｜ 約 1 小時'),
-          warn('Bónus 超市大補給', '採購 3-4 天食物 ｜ 斯奈山半島物資少，要帶夠'),
+          free('Reykjavík Record Shop', '黑膠唱片 ｜ 13:00-18:00'),
+          free('Smekkleysa Coffee & Record Shop', '黑膠唱片、咖啡廳、專注冰島音樂 ｜ 12:00-18:00'),
+          free('Space Odyssey', '（不一定要去）CD、卡帶、電子音樂 live ｜ 14:00-18:00'),
+          info('機場接 Joy', '17:20 抵達'),
+          warn('Costco & Bónus 補給', '超市採購 ｜ Bónus 10:00-21:00 ｜ 斯奈山半島物資少，要帶夠'),
+          paid('哈爾格林姆教堂', '登塔 1400 ISK', '雷克雅維克最著名地標，管風琴造型 ｜ 09:00-20:00'),
+          free('Tjörnin 托寧湖', '市中心的「鴨子湖」，周邊建築優美 ｜ 24 小時'),
+          free('太陽航海者 Sun Voyager Reykjavík', '海邊的維京船骨架雕塑，拍照聖地 ｜ 24 小時'),
+          free('12 Tónar', '唱片行 + 酒吧 ｜ 10:00-01:00'),
         ],
         camp: {
           name: 'Reykjavík Eco Campsite',
-          note: '市區生態露營地，有衛浴設施，第一晚適應',
+          note: '市區生態露營地',
           url: 'https://maps.app.goo.gl/6G1B3UdSMS5UhEtK7',
         }
       },
@@ -1174,21 +1343,25 @@
       {
         date: '27',
         weekday: 'AUG · 四',
-        region: '斯奈山西段',
-        title: '海豹海灣\n與黑教堂',
-        drive: '約 180km',
-        mapUrl: 'https://www.google.com/maps/dir/Akranes+Lighthouse+Iceland/Gerdubarg+Basalt+Columns+Iceland/Ytri+Tunga+Beach+Iceland/Arnarstapi+Iceland/Raudfeldsgja+Gorge+Iceland/Budakirkja+Iceland/Hellissandur+Camping+Iceland',
+        region: '斯奈山半島',
+        title: '瀑布群\n與斯奈山半島',
+        drive: '約 250km',
+        mapUrl: 'https://www.google.com/maps/dir/Glymur+Waterfall+Iceland/Grabrok+Crater+Iceland/Gerdubarg+Basalt+Columns+Iceland/Ytri+Tunga+Beach+Iceland/Raudfeldsgja+Gorge+Iceland/Budakirkja+Iceland/Kirkjufell+Mountain+Iceland/Arnarstapi+Iceland/Campground+Grundarfjordur+Iceland',
         timeline: [
-          paid('Akranes 紅白燈塔', '500 ISK', '10:00-17:00 ｜ 內部共鳴效果極佳 ｜ 約 30 分'),
-          free('Gerðuberg 玄武岩柱', '極為整齊的巨大玄武岩牆，路邊即可看到 ｜ 約 30 分'),
-          free('Ytri Tunga 海豹灘', '常年有海豹曬太陽的礁石海灘 ｜ 約 45 分'),
-          free('Arnarstapi 漁村', '海岸奇石、著名石橋與紀念碑 ｜ 約 1 小時'),
-          free('Rauðfeldsgjá 神秘裂谷', '狹窄裂谷可走入山壁內部 ｜ 約 45 分'),
-          free('黑教堂 Búðakirkja', '遺世獨立的小黑教堂，攝影愛好者必訪 ｜ 約 20 分'),
+          free('Glymur 瀑布', '冰島第二高瀑布，需健行約 3-4 小時 ｜ 24 小時'),
+          free('Glanni 瀑布', '據說是小精靈居住地，水量充沛 ｜ 24 小時'),
+          free('Grabrok 火山口', '位於 1 號公路旁，可俯視熔岩地貌 ｜ 24 小時'),
+          free('Gerðuberg 石柱', '整齊的巨大玄武岩牆 ｜ 24 小時'),
+          free('Ytri Tunga 海豹灘', '常年有海豹在海灘礁石上曬太陽 ｜ 24 小時'),
+          free('Bjarnafoss 瀑布', '24 小時'),
+          free('黑教堂 Búðakirkja', '遺世獨立的小教堂，攝影愛好者必訪 ｜ 24 小時'),
+          free('Rauðfeldsgjá Gorge 峽谷', '可進入峽谷深處 ｜ 24 小時'),
+          paid('教堂山 Kirkjufell', '停車 1000 ISK', '冰島明信片地標，形似草帽'),
+          free('Arnarstapi 漁村', '海岸線奇石嶺岫，有著名的石橋與紀念碑 ｜ 24 小時'),
         ],
         camp: {
           name: 'Campground Grundarfjörður ★ 露營卡',
-          note: '斯奈山西端，位置方便明日行程',
+          note: '斯奈山半島，位置方便明日行程',
           url: 'https://maps.app.goo.gl/TDEaoQopJwwdBuxv9'
         },
       },
@@ -1197,21 +1370,21 @@
       {
         date: '28',
         weekday: 'AUG · 五',
-        region: '斯奈山東段',
-        title: '教堂山\n與白日夢小鎮',
-        drive: '約 120km',
-        mapUrl: 'https://www.google.com/maps/dir/Londrangar+Iceland/Saxholl+Crater+Iceland/Kirkjufell+Mountain+Iceland/Stykkisholmur+Iceland/Berserkjahraun+Iceland/Grundarfjordur+Camping+Iceland',
+        region: '斯奈山 → 北部 Siglufjörður',
+        title: '白日夢小鎮\n野溪溫泉北上',
+        drive: '約 300km',
+        mapUrl: 'https://www.google.com/maps/dir/Stykkisholmur+Iceland/Glaumbaer+Museum+Iceland/Fosslaug+Hot+Spring+Iceland/Siglufjordur+Iceland',
         timeline: [
-          free('怪物海岸 Lóndrangar', '巨大玄武岩火山口殘骸，科幻景觀 ｜ 約 30 分'),
-          free('Saxhóll 火山口', '設有鐵梯可輕鬆登頂，俯瞰熔岩原 ｜ 約 30 分'),
-          paid('教堂山 Kirkjufell + 瀑布', '停車 1000 ISK', '冰島最上鏡地標，形似草帽 ｜ 含瀑布視角 ｜ 約 1 小時'),
-          free('Stykkishólmur 小鎮', '《白日夢冒險王》拍攝地，色彩繽紛 ｜ 約 1 小時'),
-          free('Berserkjahraun 熔岩原', '苔蘚熔岩荒野，充滿古老傳說 ｜ 約 30 分'),
+          free('Stykkishólmur 小鎮', '白日夢冒險王拍攝地，色彩繽紛 ｜ 24 小時'),
+          paid('Glaumbær Turf Farm & Museum', '2000/1900 ISK', '草泥屋農場 ｜ 組合方案（含泳池券）3000成人/2000學生 ｜ 10:00-18:00'),
+          free('Fosslaug 野溪溫泉', '752號公路轉753公路，過小橋後看右手邊指示牌往左，溫泉靠在瀑布旁小溪邊，水溫溫和不燙。無遮蔽衣，請先選好泳裝 ｜ 24 小時'),
+          free('Herring Café / Síldarkaffi', '每日例湯，可以免費續湯'),
+          free('Siglufjörður 小鎮', '小鎮加油、買東西、小博物館 ｜ 24 小時'),
         ],
         camp: {
-          name: 'Grundarfjörður Camping',
-          note: '教堂山旁，黃昏光線絕美',
-          url: 'https://maps.google.com/?q=Grundarfjordur+Camping+Iceland'
+          name: 'Siglufjörður Campsite',
+          note: 'Siglufjörður 北部小漁村，靜謐迷人',
+          url: 'https://www.google.com/maps/search/Siglufjordur+Campsite+Iceland'
         },
       },
 
@@ -1219,21 +1392,24 @@
       {
         date: '29',
         weekday: 'AUG · 六',
-        region: '西部往北',
-        title: '熔岩瀑布\n與海象岩',
-        drive: '約 250km',
-        mapUrl: 'https://www.google.com/maps/dir/Hraunfossar+Iceland/Barnafoss+Iceland/Grabrok+Crater+Iceland/Glanni+Waterfall+Iceland/Hvitserkur+Iceland/Varmahlid+Camping+Iceland',
+        region: '阿克雷里 → 胡薩維克',
+        title: '北部之都\n賞鯨小鎮',
+        drive: '約 150km',
+        mapUrl: 'https://www.google.com/maps/dir/Akureyrarkirkja+Iceland/Godafoss+Waterfall+Iceland/Husavik+Iceland',
         timeline: [
-          free('Hraunfossar 熔岩瀑布 + Barnafoss', '水從熔岩縫隙滲出的奇景，兩景點緊鄰 ｜ 約 1 小時'),
-          free('Grabrok 火山口', '1 號公路旁，可俯視熔岩地貌 ｜ 約 45 分'),
-          free('Glanni 瀑布', '據說是小精靈居住地，水量充沛 ｜ 約 30 分'),
-          free('Hvítserkur 海象岩', '矗立海中的巨大奇石，建議退潮時前往 ｜ 約 45 分'),
-          warn('Varmahlíð / Sauðárkrókur 補給', '中型超市，補充食物飲水前往阿庫雷里'),
+          free('（看一眼）阿克雷里大教堂 Akureyrarkirkja', '北部之都的地標，階梯極具特色 ｜ 10:00-18:00'),
+          free('Brynja 冰島第一名冰淇淋', '14:00-23:00'),
+          free('Lottan Akureyri', '在地二手店 ｜ 12:00-18:00'),
+          free('Hertex Hjálpræðisherinn', '二手店 ｜ 12:00-16:00'),
+          free('Rauði krossinn verslun Akureyri', '二手店 ｜ 12:00-16:00'),
+          hot('（不一定）Forest Lagoon 森林溫泉', '7490 ISK｜需提前預約', '隱身森林的高質感溫泉 ｜ 10:00-24:00'),
+          free('Goðafoss 眾神瀑布', '氣勢磅礡，呈半圓形的絕美瀑布 ｜ 24 小時'),
+          free('胡薩維克小鎮 留宿', '冰島定居之書記載，歐洲觀鯨之都，漁業與旅遊業是當地主要經濟支柱 ｜ 24 小時'),
         ],
         camp: {
-          name: 'Varmahlíð Camping ★ 露營卡',
-          note: '北部補給重點，設施完善',
-          url: 'https://maps.google.com/?q=Varmahlid+Camping+Iceland'
+          name: 'Husavik Campground',
+          note: '胡薩維克港灣小鎮，賞鯨之都',
+          url: 'https://www.google.com/maps/search/Husavik+Campground+Iceland'
         },
       },
 
@@ -1241,20 +1417,21 @@
       {
         date: '30',
         weekday: 'AUG · 日',
-        region: '阿庫雷里',
-        title: '北部之都\n與森林溫泉',
-        drive: '約 130km',
-        mapUrl: 'https://www.google.com/maps/dir/Glaumbaer+Museum+Iceland/Akureyrarkirkja+Iceland/Forest+Lagoon+Iceland/Godafoss+Waterfall+Iceland',
+        region: '米湖地熱',
+        title: '外星地熱\n米湖溫泉',
+        drive: '約 120km',
+        mapUrl: 'https://www.google.com/maps/dir/Hverir+Geothermal+Area+Iceland/Hverfjall+Crater+Iceland/Myvatn+Nature+Baths+Iceland/Grjotagja+Cave+Iceland/Dettifoss+Waterfall+Iceland',
         timeline: [
-          paid('Glaumbær 草泥屋博物館', '2000 ISK', '保存完整的草泥屋 ｜ 09:00-18:00 ｜ 約 1 小時 ｜ 強推！'),
-          free('阿庫雷里大教堂 + 市區午餐', '北部之都地標，小巷咖啡廳用餐 ｜ 約 1 小時'),
-          hot('Forest Lagoon 森林溫泉', '6500 ISK｜需提前預約', '2022 開幕，隱身森林的高質感溫泉 ｜ 10:00-24:00 ｜ 約 2-3 小時'),
-          free('Goðafoss 眾神瀑布', '氣勢磅礴的半圓形瀑布，傍晚光線最美 ｜ 約 1 小時'),
+          paid('Hverir 地熱區', '停車 1200 ISK', '充滿硫磺味、冒泡泥漿，彷彿外星地表 ｜ 24 小時'),
+          free('惠爾嘉火山口 Hverfjall', '黑色巨大的碗狀火山口，可繞行一圈 ｜ 24 小時'),
+          hot('米湖溫泉 Mývatn Nature Baths', '6490 ISK｜建議提前預約', '北部的「藍湖」，泉水偏藍且富含礦物質 ｜ 12:00-22:00'),
+          free('（不一定）Grjótagjá 洞穴溫泉', '《權力遊戲》取景地，現因水溫過高禁止進入 ｜ 24 小時'),
+          free('（不一定）黛提瀑布 Dettifoss', '全歐洲水量最大，震耳欲聾的壓迫感 ｜ 24 小時'),
         ],
         camp: {
-          name: 'Lónsá Camping ★ 或 Heiðarbær ★ 露營卡',
-          note: '阿庫雷里附近，眾神瀑布旁',
-          url: 'https://maps.google.com/?q=Godafoss+Camping+Iceland'
+          name: 'Campground Fjalladyr / Möðrudalur',
+          note: '米湖地區，方便明日繼續東行',
+          url: 'https://www.google.com/maps/search/Campground+Fjalladyr+Modrudalur+Iceland'
         },
       },
 
@@ -1262,21 +1439,23 @@
       {
         date: '31',
         weekday: 'AUG · 一',
-        region: '米湖地熱',
-        title: '外星地熱\n米湖溫泉',
-        drive: '約 100km',
-        mapUrl: 'https://www.google.com/maps/dir/Hverir+Geothermal+Area+Iceland/Hverfjall+Crater+Iceland/Dimmuborgir+Iceland/Grjotagja+Cave+Iceland/Myvatn+Nature+Baths+Iceland/Vogar+Camping+Myvatn+Iceland',
+        region: '東部峽灣 · Seyðisfjörður',
+        title: '玄武岩柱峽谷\n彩虹小鎮',
+        drive: '約 150km',
+        mapUrl: 'https://www.google.com/maps/dir/Studlagil+Canyon+Iceland/Hengifoss+Waterfall+Iceland/Skriduklauster+Iceland/Vok+Baths+Iceland/Seydisfjordur+Iceland',
         timeline: [
-          paid('Hverir 地熱區', '停車 1200 ISK', '硫磺泥漿冒泡，彷彿外星地表 ｜ 約 45 分'),
-          free('Hverfjall 惠爾火山口', '黑色巨大碗狀火山口，可繞行一圈 ｜ 約 1.5 小時'),
-          free('Dimmuborgir 黑色城堡', '各種形狀的奇特熔岩柱群 ｜ 約 45 分'),
-          free('Grjótagjá 洞穴溫泉', '《權力遊戲》取景地，現水溫過高禁止入水，可觀看 ｜ 約 20 分'),
-          hot('米湖溫泉 Mývatn Nature Baths', '6490 ISK｜建議提前預約', '北部的「藍湖」，泉水偏藍富含礦物質 ｜ 12:00-22:00 ｜ 約 2 小時'),
+          paid('（東部）Stuðlagil 峽谷', '停車 1000 ISK', '世界級玄武岩柱峽谷，河水呈蒂芬妮藍 ｜ 24 小時'),
+          free('Litlanesfoss', '往 Hengifoss 途中，有極細長玄武岩柱 ｜ 24 小時'),
+          paid('Hengifoss', '停車 1000 ISK', '健行約需 1.5 小時，建議穿防水服 ｜ 24 小時'),
+          free('（不一定）Skriðuklaustur', '冰島古老農莊與歷史遺址，自助午餐 1000 ISK ｜ 含著名 Klausturkaffi 咖啡廳 ｜ 11:00-17:00'),
+          hot('Vök Baths 浮湖溫泉', '7650/5690 ISK', '浮動地熱游泳池，桑浴室、冰水噴霧通道、湖中泳池酒吧 ｜ 10:00-22:00'),
+          free('Tvísöngur sculpture', '超可愛戶外雕塑 ｜ 24 小時'),
+          free('Seyðisfjörður 小鎮', '著名的彩虹步道與藍色教堂 ｜ 24 小時'),
         ],
         camp: {
-          name: 'Vogar (Mývatn) Camping ★ 露營卡',
-          note: '米湖區中心位置，方便明日出發',
-          url: 'https://maps.google.com/?q=Vogar+Camping+Myvatn+Iceland'
+          name: 'Seydisfjordur Camping Site',
+          note: 'Seyðisfjörður 東峽灣彩虹小鎮',
+          url: 'https://www.google.com/maps/search/Seydisfjordur+Camping+Iceland'
         },
       },
 
@@ -1284,42 +1463,45 @@
       {
         date: '1',
         weekday: 'SEP · 二',
-        region: '北往東',
-        title: '黛提瀑布\n蒂芬妮藍峽谷',
-        drive: '約 220km',
-        mapUrl: 'https://www.google.com/maps/dir/Asbyrgi+Canyon+Iceland/Dettifoss+Waterfall+Iceland/Selfoss+Waterfall+Iceland/Studlagil+Canyon+Iceland/Egilsstadir+Camping+Iceland',
+        region: '東南部 · 冰河湖',
+        title: '蝙蝠山鏡面\n傑古沙龍冰河湖',
+        drive: '約 200km',
+        mapUrl: 'https://www.google.com/maps/dir/Stokksnes+Iceland/Diamond+Beach+Iceland/Jokulsarlon+Glacier+Lagoon+Iceland/Fjallsarlon+Glacier+Lagoon+Iceland/Mulagljufur+Canyon+Iceland/Hofs+Church+Iceland/Skaftafell+Campground+Iceland',
         timeline: [
-          free('Ásbyrgi 馬蹄形峽谷', '北歐神話奧丁座騎踏出的峽谷 ｜ 約 1 小時'),
-          free('Dettifoss 黛提瀑布 + Selfoss', '全歐洲水量最大，震耳欲聾 ｜ 走 862 西側鋪裝路 ｜ 約 1.5 小時'),
-          paid('Stuðlagil 玄武岩柱峽谷', '停車 1000 ISK', '世界級蒂芬妮藍河水 ｜ 需健行約 30 分下谷 ｜ 約 2 小時'),
-          warn('Egilsstaðir Bónus 大補給', '東部最大城市 ｜ 採購 3-4 天份量 ｜ 南下最後大補給站'),
+          paid('Stokksnes 鏡面沙灘', '1000 ISK', '蜘蛛山倒影聖地，需在收費站購票 ｜ 24 小時'),
+          paid('Vestrahorn 蝙蝠山', '含在沙灘票', '冰島東部最受攝影師歡迎的山景 ｜ 24 小時'),
+          paid('Diamond Beach 鑽石冰沙灘', '含在停車費', '冰塊被浪沖上黑沙灘，像鑽石般閃爍 ｜ 24 小時'),
+          paid('Jökulsárlón 傑古沙龍冰河湖', '停車 1000 ISK', '巨大冰山漂浮，冰島最震撼景點 ｜ 24 小時'),
+          free('Fjallsárlón 冰河湖', '規模較小但離冰河更近，遊客較少 ｜ 24 小時'),
+          free('Múlagljúfur Canyon', '隱藏版秘境峽谷，瀑布從高處傾瀉而下 ｜ 24 小時'),
+          free('Hofs Church', '冰島最後一座建造的傳統草皮教堂，附近小丘陵為基地 ｜ 24 小時'),
         ],
         camp: {
-          name: 'Egilsstaðir Camping ★ 露營卡',
-          note: '東部大城，設施完善',
-          url: 'https://maps.google.com/?q=Egilsstadir+Camping+Iceland'
+          name: 'Skaftafell Campground（5300 ISK）',
+          note: 'Skaftafell tjaldsvæði，方便明日冰川健行',
+          url: 'https://www.google.com/maps/search/Skaftafell+Campground+Iceland'
         },
-
       },
 
       // ── Day 8：9/2 ──────────────────────────────
       {
         date: '2',
         weekday: 'SEP · 三',
-        region: '東峽灣',
-        title: '海鸚 · 彩虹\n浮湖溫泉',
-        drive: '約 80km',
-        mapUrl: 'https://www.google.com/maps/dir/Hafnarholmi+Iceland/Seydisfjordur+Iceland/Hengifoss+Waterfall+Iceland/Vok+Baths+Iceland',
+        region: '冰川健行 · 維克',
+        title: '冰川探險\n黑沙灘海蝕洞',
+        drive: '約 100km',
+        mapUrl: 'https://www.google.com/maps/dir/Skaftafell+Iceland/Icewear+Vik+Iceland/Vik+Church+Iceland/Reynisfjara+Beach+Iceland/Dyrholaey+Iceland',
         timeline: [
-          paid('Hafnarhólmi 賞海鸚', '500 ISK', '最安全方便的 Puffin 觀景台 ｜ 8 月末數量較少但仍值得 ｜ 約 1 小時'),
-          free('Seyðisfjörður 彩虹小鎮', '彩虹步道 + 藍色教堂，山路下坡風景極美 ｜ 約 1.5 小時'),
-          free('Hengifoss + Litlanesfoss', '紅色地層條紋瀑布 + 極細玄武岩柱 ｜ 單程 2.5km 健行 ｜ 約 2.5 小時'),
-          hot('Vök Baths 浮湖溫泉', '6900 ISK｜需提前預約', '浮在湖面上的地熱溫泉，設計感極強 ｜ 10:00-22:00 ｜ 約 2 小時'),
+          hot('Skaftafell 5-Hour Adventure Glacier Hike', '每人 USD 165.5｜需預約', '10:00 到 Troll Expeditions Skaftafell 集合，距離營地開車 16 分鐘 ｜ 10:30-16:30'),
+          free('Icewear / Vik Wool', '要買羊毛衣物可以在這買 ｜ 09:00-21:00'),
+          free('維克教堂', '位在小鎮高處，可俯視黑沙灘美景 ｜ 24 小時'),
+          paid('Reynisfjara 黑沙灘', '停車 1000 ISK', '世界最美沙灘之一，玄武岩柱與海蝕洞 ｜ 24 小時'),
+          free('Dyrhólaey 海蝕拱門', '巨大海蝕洞景觀，夏季亦可賞 Puffin ｜ 24 小時'),
         ],
         camp: {
-          name: 'Fljótsdalsgrund Camping ★ 露營卡',
-          note: 'Hengifoss 附近，東峽灣核心',
-          url: 'https://maps.google.com/?q=Fljotsdalsgrund+Camping+Iceland'
+          name: 'Airbnb — Amma Jóna cottage',
+          note: '維克附近民宿，冰川健行後好好休息',
+          url: 'https://www.airbnb.com'
         },
       },
 
@@ -1327,19 +1509,23 @@
       {
         date: '3',
         weekday: 'SEP · 四',
-        region: '冰川 · 霍芬',
-        title: '冰川健行\n蝙蝠山秘境',
-        drive: '約 180km',
-        mapUrl: 'https://www.google.com/maps/dir/Skaftafell+Visitor+Center+Iceland/Stokksnes+Vestrahorn+Iceland/Mulagljufur+Canyon+Iceland/Hofn+Iceland+Camping',
+        region: '南岸瀑布 · 金圈',
+        title: '彩虹瀑布群\n黃金圈',
+        drive: '約 200km',
+        mapUrl: 'https://www.google.com/maps/dir/Solheimajokull+Iceland/Skogafoss+Waterfall+Iceland/Gljufrabui+Waterfall+Iceland/Seljalandsfoss+Waterfall+Iceland/Hrunalaug+Hot+Spring+Iceland/Geysir+Iceland/Gullfoss+Waterfall+Iceland',
         timeline: [
-          hot('Falljökull 冰川健行', '8000–12000 ISK｜必須提前預約', 'Skaftafell 出發 ｜ 09:00 集合，含裝備約 3–4 小時 ｜ 新手友好，必須跟導遊'),
-          paid('Stokksnes 鏡面沙灘 + Vestrahorn 蝙蝠山', '1000 ISK', '攝影師聖地，下午光線也很美 ｜ 約 1.5 小時'),
-          free('Múlagljúfur 隱藏秘境峽谷', '瀑布從高處傾瀉，遊客極少 ｜ 輕度健行約 40 分 ｜ 強推！約 1.5 小時'),
+          free('Sólheimajökull 冰川地形', '24 小時'),
+          free('Skógafoss 彩虹瀑布', '壯闊平直，晴天時極大機率出現雙彩虹 ｜ 24 小時'),
+          paid('Gljúfrabúi 秘密瀑布', '含在停車費', '躲在岩縫中的瀑布，需涉水進入 ｜ 24 小時'),
+          paid('Seljalandsfoss 水簾洞瀑布', '停車 1000 ISK', '可 360 度繞行瀑布一圈 ｜ 24 小時'),
+          paid('Hrunalaug 溫泉', '1000 ISK', '私人經營的傳統草屋小溫泉池 ｜ 09:00-21:00'),
+          free('大間歇泉 Geysir', '每 5-10 分鐘噴發一次，高度達 30 米 ｜ 24 小時'),
+          free('Gullfoss 黃金瀑布', '金圈必訪，雙層式瀑布氣勢排山倒海 ｜ 24 小時'),
         ],
         camp: {
-          name: 'Höfn 附近露營地',
-          note: '東南角，方便明日一早前往冰河湖',
-          url: 'https://maps.google.com/?q=Hofn+Camping+Iceland'
+          name: 'Skjól Camping',
+          note: '金圈地區，方便明日行程',
+          url: 'https://www.google.com/maps/search/Skjol+Camping+Iceland'
         },
       },
 
@@ -1347,23 +1533,23 @@
       {
         date: '4',
         weekday: 'SEP · 五',
-        region: '冰河湖 · 南岸',
-        title: '冰河湖\n黑沙灘彩虹',
-        drive: '約 200km',
-        mapUrl: 'https://www.google.com/maps/dir/Fjallsarlon+Glacier+Lagoon+Iceland/Jokulsarlon+Glacier+Lagoon+Iceland/Diamond+Beach+Iceland/Hofskirkja+Iceland/Skogafoss+Waterfall+Iceland/Reynisfjara+Black+Sand+Beach+Iceland/Dyrholaey+Iceland',
+        region: '金圈 · 南岸小鎮',
+        title: '國家公園\n野溪溫泉',
+        drive: '約 180km',
+        mapUrl: 'https://www.google.com/maps/dir/Bruara+Trail+Iceland/Efstidalur+II+Iceland/Thingvellir+National+Park+Iceland/Kerid+Volcanic+Crater+Iceland/Reykjadalur+Hot+Spring+Iceland/Eyrarbakki+Iceland',
         timeline: [
-          free('Fjallsárlón 小冰河湖', '離冰河更近，遊客較少 ｜ 約 45 分'),
-          paid('傑古沙龍冰河湖 + 鑽石冰沙灘', '停車 1000 ISK', '⭐ 必訪！巨大冰山漂浮 ｜ 鑽石沙灘含在停車費 ｜ 約 1.5 小時'),
-          free('Hofskirkja 草屋教堂', '冰島最後建造的草皮教堂 ｜ 約 20 分'),
-          free('Skógafoss 彩虹瀑布 + Kvernufoss', '晴天極大機率出現雙彩虹 ｜ Kvernufoss 可走入後方 ｜ 約 1.5 小時'),
-          paid('Reynisfjara 黑沙灘 + 維克教堂', '停車 1000 ISK', '⚠️ 注意偷襲浪，絕對不要背對大海 ｜ 約 1.5 小時'),
-          free('Dyrhólaey 海蝕拱門', '巨大海蝕洞，夏末可能仍有 Puffin ｜ 約 45 分'),
-          warn('維克小超市補給', '明日黃金圈補給點少'),
+          paid('Brúará Trail', '停車 750 ISK', '漂亮的瀑布 ｜ 24 小時'),
+          free('Efstidalur II 餐廳（吃冰淇淋）', '可以免費續湯還有麵包，有蔬菜濃湯和馬鈴薯餅'),
+          paid('Þingvellir 國家公園', '停車 1000 ISK', '歐美板塊交界，冰島民主議會誕生地 ｜ 24 小時'),
+          paid('Kerið 火山口湖', '500 ISK', '湛藍的湖水與紅色的岩石對比鮮明 ｜ 08:30-21:00'),
+          paid('Reykjadalur 野溪溫泉', '停車 1000 ISK', '溫泉河，需爬山 1 小時，在河裡泡溫泉 ｜ 24 小時'),
+          warn('Bónus', 'Joy 買最後伴手禮 ｜ 09:00-21:00'),
+          free('埃拉巴基 Eyrarbakki', '南岸純樸的海邊古鎮，歷史氛圍濃厚 ｜ 24 小時'),
         ],
         camp: {
-          name: 'Vík Camping 或 Skógar Camping',
-          note: '位置方便明日黃金圈行程',
-          url: 'https://maps.google.com/?q=Vik+Camping+Iceland'
+          name: 'Stokkseyri tjaldsvæði',
+          note: '南岸小鎮露營地，方便明日行程',
+          url: 'https://www.google.com/maps/search/Stokkseyri+Campsite+Iceland'
         },
       },
 
@@ -1371,22 +1557,26 @@
       {
         date: '5',
         weekday: 'SEP · 六',
-        region: '黃金圈 · 離別',
-        title: '黃金圈\n道別之日',
-        drive: '分道揚鑣',
-        mapUrl: 'https://www.google.com/maps/dir/Seljalandsfoss+Iceland/Kerid+Volcanic+Crater+Lake+Iceland/Geysir+Iceland/Gullfoss+Waterfall+Iceland/Thingvellir+National+Park+Iceland/Keflavik+International+Airport+Iceland',
+        region: '雷克雅維克 · 離別',
+        title: '雷克雅維克\n文青小店逛逛',
+        drive: '市區為主',
+        mapUrl: 'https://www.google.com/maps/dir/Krysuvik+Iceland/Keflavik+Airport+Iceland/Kolaportid+Reykjavik/Harpa+Reykjavik/Hafnarborg+Reykjavik',
         timeline: [
-          paid('Seljalandsfoss 水簾洞 + Gljúfrabúi', '停車 1000 ISK', '可 360 度繞行 ｜ Gljúfrabúi 需涉水進入岩縫 ｜ 約 1 小時'),
-          paid('Kerið 火山口湖', '500 ISK', '湛藍湖水 + 紅色岩石對比鮮明 ｜ 08:30-21:00 ｜ 約 45 分'),
-          free('Geysir 大間歇泉', '每 5-10 分鐘噴發，高達 30 米 ｜ 約 1 小時'),
-          free('Gullfoss 黃金瀑布', '金圈必訪，雙層式瀑布氣勢排山倒海 ｜ 約 1 小時'),
-          paid('Þingvellir 辛格韋德利', '停車 1000 ISK', '歐美板塊交界 + 冰島民主議會誕生地 ｜ 約 1 小時'),
-          info('道別 — 你飛往奧斯陸', '朋友送你到 KEF ｜ 朋友就近露營，9/6 早上 09:10 飛倫敦'),
+          free('Krýsuvík 自然公園 礦物碗鎮', '24 小時'),
+          info('Joy 搭機', '10:40 起飛，預計 8:00 到機場'),
+          free('Kolaportið 市集', '冰島唯一的跳蚤市場，可試吃發酵鯊魚 ｜ 週末 11:00-17:00'),
+          free('Harpa 音樂廳', '絕美的玻璃幾何建築，冰島文化中心 ｜ 免費入內 ｜ 10:00-18:00'),
+          paid('藝術博物館 Hafnarhús', '2350 ISK', '位於港口區，展出當代前衛藝術 ｜ 10:00-17:00'),
+          free('The Icelandic Punk Museum / Pönksafn Íslands', '冰島最小的博物館 ｜ 10:00-18:00'),
+          free('Plötumarkaður Óla - Vinyl Market', '黑膠唱片 ｜ 12:00-18:00'),
+          free('Lucky Records', '黑膠唱片 ｜ 12:00-18:00'),
+          free('Second hand store The Good Shepherd', '二手店 ｜ 11:00-18:00'),
+          free('Mengi', '表演空間，時間近一點可以看有沒有演出 ｜ 19:30-22:00'),
         ],
         camp: {
-          name: 'Una, Ash：KEF 附近 Reykjamörk Camping ★',
-          note: '露營卡可用 ｜ 9/6 早上短程即達機場',
-          url: 'https://maps.google.com/?q=Reykjamark+Camping+Iceland'
+          name: 'Sandgerði Camping',
+          note: '機場附近露營地，方便明日離境',
+          url: 'https://www.google.com/maps/search/Sandgerdi+Camping+Iceland'
         },
       },
     ];
@@ -1416,15 +1606,24 @@
 
         // 產生 timeline 項目
         const timelineHTML = day.timeline.map(function (item) {
+          const linksHTML = (item.links && item.links.length > 0)
+            ? `<div class="tl-links">
+        ${item.links.map(function (link) {
+              return `<a href="${link.url}" target="_blank" rel="noopener" class="tl-link">${link.label}</a>`;
+            }).join('')}
+       </div>`
+            : '';
+
           return `
-            <li class="tl-item">
-              <div class="tl-bullet ${item.color}"></div>
-              <div class="tl-content">
-                <strong>${item.title} <span class="badge ${item.badge.type}">${item.badge.text}</span></strong>
-                <small>${item.note}</small>
-              </div>
-            </li>
-          `;
+    <li class="tl-item">
+      <div class="tl-bullet ${item.color}"></div>
+      <div class="tl-content">
+        <strong>${item.title} <span class="badge ${item.badge.type}">${item.badge.text}</span></strong>
+        <small>${item.note}</small>
+        ${linksHTML}
+      </div>
+    </li>
+    `;
         }).join('');
 
         // 組合完整卡片
