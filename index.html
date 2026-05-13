@@ -17,7 +17,7 @@
       --glacier: #8ab8cc;
       --deep: #1a2a35;
       --moss: #4a6741;
-      --amber: #c8821a;
+      --amber: #f49595;
       --lava: #8b2e0f;
       --muted: #6b7280;
       --border: rgba(255, 255, 255, 0.12);
@@ -679,6 +679,34 @@
       background: #c86040;
     }
 
+    .tl-bullet.purple {
+      background: #cfb0f8;
+    }
+
+    .tl-bullet.yellow {
+      background: #E4A35D;
+    }
+
+    .badge.hot {
+      background: rgba(221, 188, 66, 0.15);
+      color: #E4A35D;
+    }
+
+    .spot-tag.hot {
+      border-color: rgba(221, 188, 66, 0.4);
+      color: #E4A35D;
+    }
+
+    .badge.info {
+      background: rgba(151, 71, 255, 0.2);
+      color: #cfb0f8;
+    }
+
+    .spot-tag.info {
+      border-color: rgba(151, 71, 255, 0.4);
+      color: #cfb0f8;
+    }
+
     .tl-bullet.gray {
       background: rgba(255, 255, 255, 0.2);
     }
@@ -826,7 +854,7 @@
       font-family: 'Chiron GoRound TC', sans-serif;
       font-size: 1.5rem;
       font-weight: 300;
-      color: var(--amber);
+      color: var(--glacier);
       width: 2rem;
       flex-shrink: 0;
       line-height: 1;
@@ -1139,10 +1167,8 @@
     </div>
     <div id="filter-bar">
       <button class="filter-btn active" data-type="all">全部</button>
-      <button class="filter-btn" data-type="special">⭐ 必訪景點</button>
       <button class="filter-btn" data-type="hot">♨️ 溫泉</button>
       <button class="filter-btn" data-type="supply">🛒 補給日</button>
-      <button class="filter-btn" data-type="free">免費景點</button>
     </div>
   </section>
 
@@ -1231,23 +1257,6 @@
     <div>
       <div class="tip-label">重要提醒</div>
       <div class="notice-item">
-        <div class="notice-icon">🐋</div>
-        <div class="notice-text">
-          <strong>冰川健行 Options</strong>
-          <li><small><a href="https://shorturl.at/LJu1L" target="_blank" rel="noopener"> 5 Hours Adventure Glacier Hike
-                (USD $165/person) ↗ </a></small></li>
-          <li><small><a href="https://shorturl.at/oFiUS" target="_blank" rel="noopener"> 5 Hours Moderate Glacier Hike
-                in Skaftafell (USD $163/person) ↗ </a></small></li>
-          <li><small><a href="https://shorturl.at/8kcbG" target="_blank" rel="noopener"> 4 Hours A Glacier Maze in
-                Skaftafell (USD $139/person) ↗ </a></small></li>
-          <li><small><a href="https://glacieradventure.is/tour/vatnajokull-glacier-walk/" target="_blank"
-                rel="noopener"> 4 Hours Magical Glacier Walk on Vatnajökull Glacier (16.900 ISK) 1,5-2 hours on the
-                glacier. This tour is easy-moderated and family-friendly ↗ </a></small></li>
-          <li><small><a href="https://glacieradventure.is/tour/glacier-adventure-summer-tour/" target="_blank"
-                rel="noopener"> 5-6 Hours The Amazing Glacier Adventure Summer Tour (27.800 ISK) ↗ </a></small></li>
-        </div>
-      </div>
-      <div class="notice-item">
         <div class="notice-icon">⛺</div>
         <div class="notice-text">
           <strong>Camping Card 使用</strong>
@@ -1299,13 +1308,16 @@
       return { color: 'blue', title, badge: { text: price, type: 'paid' }, note, links };
     }
     function warn(title, note, links = []) {
-      return { color: 'amber', title, badge: { text: '重要', type: 'warn' }, note, links };
+      return { color: 'amber', title, badge: { text: '補給', type: 'warn' }, note, links };
     }
     function hot(title, price, note, links = []) {
       return { color: 'red', title, badge: { text: price, type: 'paid' }, note, links };
     }
     function info(title, note, links = []) {
-      return { color: 'red', title, badge: { text: '', type: 'warn' }, note, links };
+      return { color: 'purple', title, badge: { text: '交通', type: 'info' }, note, links };
+    }
+    function hot(title, price, note, links = []) {
+      return { color: 'yellow', title, badge: { text: price, type: 'hot' }, note, links };
     }
 
     const days = [
@@ -1318,6 +1330,7 @@
         drive: 'Una & Ash 08:20 抵達\n Joy 17:20 抵達',
         mapUrl: 'https://maps.app.goo.gl/zVNMJxxVv4G7Skvq7',
         timeline: [
+          info('取車', 'Toyota RAV4 4×4 + Roof Tent · Lotus Car Rental #156617'),
           paid('冰島國立博物館', '2500 ISK', '系統性了解冰島歷史的首選地。｜ 10:00-17:00'),
           free('Bókumbók', '藝術書店...', [
             { label: 'IG', url: 'https://www.instagram.com/bokumbok_/' },
@@ -1377,7 +1390,7 @@
         timeline: [
           free('Stykkishólmur 小鎮', '白日夢冒險王拍攝地，色彩繽紛 ｜ 24 小時'),
           paid('Glaumbær Turf Farm & Museum', '2000/1900 ISK', '草泥屋農場 ｜ 組合方案（含泳池券）3000成人/2000學生 ｜ 10:00-18:00'),
-          free('Fosslaug 野溪溫泉', '752號公路轉753公路，過小橋後看右手邊指示牌往左，溫泉靠在瀑布旁小溪邊，水溫溫和不燙。無遮蔽衣，請先選好泳裝 ｜ 24 小時'),
+          hot('Fosslaug 野溪溫泉', '752號公路轉753公路，過小橋後看右手邊指示牌往左，溫泉靠在瀑布旁小溪邊，水溫溫和不燙。無遮蔽衣，請先選好泳裝 ｜ 24 小時'),
           free('Herring Café / Síldarkaffi', '每日例湯，可以免費續湯'),
           free('Siglufjörður 小鎮', '小鎮加油、買東西、小博物館 ｜ 24 小時'),
         ],
@@ -1425,7 +1438,7 @@
           paid('Hverir 地熱區', '停車 1200 ISK', '充滿硫磺味、冒泡泥漿，彷彿外星地表 ｜ 24 小時'),
           free('惠爾嘉火山口 Hverfjall', '黑色巨大的碗狀火山口，可繞行一圈 ｜ 24 小時'),
           hot('米湖溫泉 Mývatn Nature Baths', '6490 ISK｜建議提前預約', '北部的「藍湖」，泉水偏藍且富含礦物質 ｜ 12:00-22:00'),
-          free('（不一定）Grjótagjá 洞穴溫泉', '《權力遊戲》取景地，現因水溫過高禁止進入 ｜ 24 小時'),
+          hot('（不一定）Grjótagjá 洞穴溫泉', '《權力遊戲》取景地，現因水溫過高禁止進入 ｜ 24 小時'),
           free('（不一定）黛提瀑布 Dettifoss', '全歐洲水量最大，震耳欲聾的壓迫感 ｜ 24 小時'),
         ],
         camp: {
@@ -1492,10 +1505,11 @@
         drive: '約 100km',
         mapUrl: 'https://www.google.com/maps/dir/Skaftafell+Iceland/Icewear+Vik+Iceland/Vik+Church+Iceland/Reynisfjara+Beach+Iceland/Dyrholaey+Iceland',
         timeline: [
-          hot('Skaftafell 5-Hour Adventure Glacier Hike', '每人 USD 165.5｜需預約', '10:00 到 Troll Expeditions Skaftafell 集合，距離營地開車 16 分鐘 ｜ 10:30-16:30', [
+          paid('Skaftafell 5-Hour Adventure Glacier Hike', '每人 USD 165.5｜需預約', '10:00 到 Troll Expeditions Skaftafell 集合，距離營地開車 16 分鐘 ｜ 10:30-16:30', [
             { label: '📍 Meeting place', url: 'https://maps.app.goo.gl/Gspqa8kA4bgkhYTX8' },
             { label: '🌐 Booking website', url: 'https://troll.is/tour/skaftafell-5-hour-glacier-hike/?_gl=1*dxkra5*_up*MQ..*_gs*MQ..*_ga*MTI3NTUyNDIzLjE3NzY1OTA5MjU.*_ga_B5BK0T4PKP*czE3NzY1OTA5MjUkbzEkZzEkdDE3NzY1OTA5NTAkajM1JGwwJGgxMjQ1ODgyOTg.&gbraid=0AAAAADJ22qH7V69KQeb1Od3qBnP3zVdP_' },
             { label: '🏷️ Ticket', url: './ticket-TRO-T130707149.pdf' },
+            { label: '部落格介紹', url: 'https://cn.guidetoiceland.is/connect-with-locals/6640/iceland-local-tour-skaftafell-svinafellsjokull-glacier-hiking-experience' },
           ]),
           free('Icewear / Vik Wool', '要買羊毛衣物可以在這買 ｜ 09:00-21:00'),
           free('維克教堂', '位在小鎮高處，可俯視黑沙灘美景 ｜ 24 小時'),
@@ -1522,7 +1536,7 @@
           free('Skógafoss 彩虹瀑布', '壯闊平直，晴天時極大機率出現雙彩虹 ｜ 24 小時'),
           paid('Gljúfrabúi 秘密瀑布', '含在停車費', '躲在岩縫中的瀑布，需涉水進入 ｜ 24 小時'),
           paid('Seljalandsfoss 水簾洞瀑布', '停車 1000 ISK', '可 360 度繞行瀑布一圈 ｜ 24 小時'),
-          paid('Hrunalaug 溫泉', '1000 ISK', '私人經營的傳統草屋小溫泉池 ｜ 09:00-21:00'),
+          hot('Hrunalaug 溫泉', '1000 ISK', '私人經營的傳統草屋小溫泉池 ｜ 09:00-21:00'),
           free('大間歇泉 Geysir', '每 5-10 分鐘噴發一次，高度達 30 米 ｜ 24 小時'),
           free('Gullfoss 黃金瀑布', '金圈必訪，雙層式瀑布氣勢排山倒海 ｜ 24 小時'),
         ],
@@ -1602,9 +1616,11 @@
 
         // 產生 spots HTML
         const spotsHTML = day.timeline.map(function (item) {
-          const type = item.color === 'red' ? 'special'
+          const type = item.color === 'yellow' ? 'hot'
             : item.color === 'amber' ? 'supply'
-              : 'sight'
+              : item.color === 'purple' ? 'info'
+                : item.color === 'red' ? 'special'
+                  : 'sight'
           return `<span class="spot-tag ${type}">${item.title}</span>`;
         }).join('');
 
@@ -1770,7 +1786,7 @@
         // 其他類型：看 timeline 裡有沒有符合的 type
         const filtered = days.filter(function (day) {
           return day.timeline.some(function (item) {
-            if (type === 'hot') return item.color === 'red';
+            if (type === 'hot') return item.color === 'yellow';
             if (type === 'special') return item.color === 'red';
             if (type === 'supply') return item.color === 'amber';
             return item.color === 'blue';
