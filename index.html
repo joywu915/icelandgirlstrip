@@ -469,7 +469,7 @@
     }
 
     .route-dot.end {
-      background: var(--amber);
+      background: var(--glacier);
       width: 14px;
       height: 14px;
     }
@@ -563,7 +563,7 @@
     }
 
     .day-right {
-      padding: 2rem 0 2rem 2rem;
+      padding: 2rem 2rem 2rem 2rem;
     }
 
     .day-title-row {
@@ -732,6 +732,30 @@
       border-radius: 3px;
       margin-left: 6px;
       letter-spacing: 0.05em;
+    }
+
+    .tl-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.5rem 0;
+      list-style: none;
+    }
+
+    .tl-divider::before,
+    .tl-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .tl-divider span {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.3);
+      white-space: nowrap;
     }
 
     .badge.free {
@@ -976,11 +1000,11 @@
       }
 
       .day-left {
-        padding: 1.5rem 1rem 1.5rem 0;
+        padding: 1.5rem 1rem 1.5rem 1rem;
       }
 
       .day-right {
-        padding: 1.5rem 0 1.5rem 1rem;
+        padding: 1.5rem 1rem 1.5rem 1rem;
       }
 
       .tips-section {
@@ -1023,7 +1047,7 @@
       .day-left {
         border-right: none;
         border-bottom: 1px solid var(--border);
-        padding: 1rem 0;
+        padding: 1rem 1rem;
       }
 
       .day-right {
@@ -1310,9 +1334,6 @@
     function warn(title, note, links = []) {
       return { color: 'amber', title, badge: { text: '補給', type: 'warn' }, note, links };
     }
-    function hot(title, price, note, links = []) {
-      return { color: 'red', title, badge: { text: price, type: 'paid' }, note, links };
-    }
     function info(title, note, links = []) {
       return { color: 'purple', title, badge: { text: '交通', type: 'info' }, note, links };
     }
@@ -1330,6 +1351,7 @@
         drive: 'Una & Ash 08:20 抵達\n Joy 17:20 抵達',
         mapUrl: 'https://maps.app.goo.gl/zVNMJxxVv4G7Skvq7',
         timeline: [
+          { type: 'divider', label: '早上' },
           info('取車', 'Toyota RAV4 4×4 + Roof Tent · Lotus Car Rental #156617'),
           paid('冰島國立博物館', '2500 ISK', '系統性了解冰島歷史的首選地。｜ 10:00-17:00'),
           free('Bókumbók', '藝術書店...', [
@@ -1339,8 +1361,10 @@
           free('Reykjavík Record Shop', '黑膠唱片 ｜ 13:00-18:00'),
           free('Smekkleysa Coffee & Record Shop', '黑膠唱片、咖啡廳、專注冰島音樂 ｜ 12:00-18:00'),
           free('Space Odyssey', '（不一定要去）CD、卡帶、電子音樂 live ｜ 14:00-18:00'),
+          { type: 'divider', label: '下午' },
           info('機場接 Joy', '17:20 抵達'),
           warn('Costco & Bónus 補給', '超市採購 ｜ Bónus 10:00-21:00 ｜ 斯奈山半島物資少，要帶夠'),
+          { type: 'divider', label: '晚上' },
           paid('哈爾格林姆教堂', '登塔 1400 ISK', '雷克雅維克最著名地標，管風琴造型 ｜ 09:00-20:00'),
           free('Tjörnin 托寧湖', '市中心的「鴨子湖」，周邊建築優美 ｜ 24 小時'),
           free('太陽航海者 Sun Voyager Reykjavík', '海邊的維京船骨架雕塑，拍照聖地 ｜ 24 小時'),
@@ -1361,11 +1385,14 @@
         drive: '約 250km',
         mapUrl: 'https://www.google.com/maps/dir/Glymur+Waterfall+Iceland/Grabrok+Crater+Iceland/Gerdubarg+Basalt+Columns+Iceland/Ytri+Tunga+Beach+Iceland/Raudfeldsgja+Gorge+Iceland/Budakirkja+Iceland/Kirkjufell+Mountain+Iceland/Arnarstapi+Iceland/Campground+Grundarfjordur+Iceland',
         timeline: [
+          { type: 'divider', label: '一' },
           free('Glymur 瀑布', '冰島第二高瀑布，需健行約 3-4 小時 ｜ 24 小時'),
           free('Glanni 瀑布', '據說是小精靈居住地，水量充沛 ｜ 24 小時'),
           free('Grabrok 火山口', '位於 1 號公路旁，可俯視熔岩地貌 ｜ 24 小時'),
+          { type: 'divider', label: '二' },
           free('Gerðuberg 石柱', '整齊的巨大玄武岩牆 ｜ 24 小時'),
           free('Ytri Tunga 海豹灘', '常年有海豹在海灘礁石上曬太陽 ｜ 24 小時'),
+          { type: 'divider', label: '三' },
           free('Bjarnafoss 瀑布', '24 小時'),
           free('黑教堂 Búðakirkja', '遺世獨立的小教堂，攝影愛好者必訪 ｜ 24 小時'),
           free('Rauðfeldsgjá Gorge 峽谷', '可進入峽谷深處 ｜ 24 小時'),
@@ -1615,17 +1642,28 @@
       data.forEach(function (day, index) {
 
         // 產生 spots HTML
-        const spotsHTML = day.timeline.map(function (item) {
-          const type = item.color === 'yellow' ? 'hot'
-            : item.color === 'amber' ? 'supply'
-              : item.color === 'purple' ? 'info'
-                : item.color === 'red' ? 'special'
-                  : 'sight'
-          return `<span class="spot-tag ${type}">${item.title}</span>`;
-        }).join('');
+        const spotsHTML = day.timeline
+          .filter(function (item) { return item.type !== 'divider'; })
+          .map(function (item) {
+            const type = item.color === 'yellow' ? 'hot'
+              : item.color === 'amber' ? 'supply'
+                : item.color === 'purple' ? 'info'
+                  : item.color === 'red' ? 'special'
+                    : 'sight'
+            return `<span class="spot-tag ${type}">${item.title}</span>`;
+          }).join('');
 
         // 產生 timeline 項目
         const timelineHTML = day.timeline.map(function (item) {
+          // 如果是分隔線，直接回傳分隔線 HTML
+          if (item.type === 'divider') {
+            return `
+              <li class="tl-divider">
+                <span>${item.label}</span>
+              </li>
+            `;
+          }
+
           const linksHTML = (item.links && item.links.length > 0)
             ? `<div class="tl-links">
         ${item.links.map(function (link) {
@@ -1738,7 +1776,7 @@
       { num: '12', label: '天 · 11 夜 ' },
       { num: days.flatMap(function (day) { return day.timeline; }).length, label: '景點' },
       { num: '~1800', label: '公里總車程' },
-      { num: days.flatMap(function (day) { return day.timeline; }).filter(function (item) { return item.color === 'red'; }).length, label: '溫泉體驗' },
+      { num: days.flatMap(function (day) { return day.timeline; }).filter(function (item) { return item.color === 'yellow'; }).length, label: '溫泉體驗' },
     ];
 
     const overviewEl = document.querySelector('.overview');
